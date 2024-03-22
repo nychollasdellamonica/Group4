@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var myModal = new bootstrap.Modal(document.getElementById('modalLogin'));
+            var openModalLink = document.getElementById('openModalLink');
+
+            openModalLink.addEventListener('click', function (event) {
+                event.preventDefault(); 
+                myModal.show(); 
+            });
+        });
+    </script>
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100">
+            <use xlink:href="#bootstrap"></use>
+        </svg>
+        <h1 class="text-body-emphasis">E-Learn</h1>
+        <p class="col-lg-8 mx-auto fs-5 text-muted">
+            Group 4 Project <code>.col-*</code>
+        </p>
+        <div class="d-inline-flex gap-2 mb-5">
+
+            <a  id="openModalLink" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-log-in"></span>
+                Login</a>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="Login" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLoginLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal body content goes here --> 
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com" dcvalue="">
+                        <label for="floatingInput">Email address</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password" dcvalue="">
+                        <label for="floatingPassword">Password</label>
+                      </div>  
+                      <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" >login</button>                                          
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
