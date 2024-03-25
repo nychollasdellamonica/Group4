@@ -1,10 +1,11 @@
 <%- include('partials/header') %>
+<%- include('partials/menu') %>
 <div class="p-5 text-center bg-body-tertiary rounded-3">
     <% courses.forEach(function(course) { %>
         <div class="card" style="width: 18rem;">
-            <img src="<%= course.image_url %>" class="card-img-top" alt="<%= course.title %>">
+            <img src="data:image/jpeg;base64,<%= course.COVER_IMAGE %>" class="card-img-top" alt="<%= course.TITLE %>">
             <div class="card-body">
-                <h5 class="card-title"><%= course.title %></h5>
+                <h5 class="card-title"><%= course.TITLE %></h5>
                 <p class="card-text"><%= course.description %></p>
                 <a href="#" class="btn btn-primary">View Details</a>
             </div>
