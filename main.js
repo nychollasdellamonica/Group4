@@ -1,26 +1,27 @@
 //imports
 require('dotenv').config();
-const express = require('express')
-const session = require('express-session')
-const bodyParser = require('body-parser');
-require('express-validator');
-const app = express()
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');  
+
+const app = express();
 const PORT = process.env.PORT || 1337;
 
-//middlewares 
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.json())
+// Middlewares
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(session({
-    secret: "secret goes here",
-    saveUninitialized: true,
-    resave: false,
-}))
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false
+}));
 
-app.set('view engine', "ejs");
+app.set('view engine', 'ejs');
 
-//
+// Routes
 require('./routes/routes')(app);
 
-app.listen(PORT,()=>{
-    console.log(`Server running: http://localhost:${PORT}`)
-})
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server running: http://localhost:${PORT}`);
+});
