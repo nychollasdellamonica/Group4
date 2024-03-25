@@ -2,11 +2,13 @@
 require('dotenv').config();
 const express = require('express')
 const session = require('express-session')
+const bodyParser = require('body-parser');
+require('express-validator');
 const app = express()
 const PORT = process.env.PORT || 1337;
 
-//middlewares
-app.use(express.urlencoded({extended:true}));
+//middlewares 
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.json())
 app.use(session({
     secret: "secret goes here",

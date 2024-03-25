@@ -34,15 +34,17 @@
                 </div>
                 <div class="modal-body">
                     <!-- Modal body content goes here --> 
+                    <form id="loginForm"  method="post" action="/">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com" dcvalue="">
+                        <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="name@example.com" dcvalue="">
                         <label for="floatingInput">Email address</label>
                       </div>
                       <div class="form-floating mb-3">
-                        <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password" dcvalue="">
+                        <input type="password" class="form-control rounded-3" id="password" name="password" placeholder="Password" dcvalue="">
                         <label for="floatingPassword">Password</label>
                       </div>  
-                      <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" >login</button>                                          
+                      <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" >login</button>         
+                    </form>                                  
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
@@ -50,5 +52,10 @@
             </div>
         </div>
     </div>
-
+    <% if (errorLogin) { %>
+        <script>
+            Swal.fire("<%= errorLogin %>");
+        </script>
+    <% } %>
+    
     <%- include('partials/footer') %>
