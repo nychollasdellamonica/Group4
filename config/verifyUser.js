@@ -9,7 +9,8 @@ exports.verifyUser = async (req, res) => {
         if (!email || !password) {
             return res.render('home', { title: "Home Page", errorLogin: "Something went wrong!" });
         }
-
+        let e =  email.toUpperCase();
+        console.log(e)
         try {
             const connection = await oracledb.getConnection({
                 user: process.env.NODE_ORACLEDB_USER,
@@ -21,13 +22,15 @@ exports.verifyUser = async (req, res) => {
 
             const result = await connection.execute(
                 `SELECT * FROM gp4_users WHERE UPPER(username) = :user_name AND password = :pwd`,
-                { user_name: email.toUpperCase(), pwd: password }
+                { user_name: e, pwd: password }
             );
 
             if (result.rows.length > 0) {
                 // User authentication successful, set session
-                req.session.user = result.rows[0];
-                return res.render('dashboard', { title: "Dashboard", });
+                console.log(result.rows[0])
+                req.session.userID = result.rows[0].ID;
+                req.session.user = result.rows[0].USERNAME;
+                return res.redirect('/dashboard')
             } else {
                 return res.render('home', { title: "Home Page", errorLogin: "Invalid email or password." });
             }
