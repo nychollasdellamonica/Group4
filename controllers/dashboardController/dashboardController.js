@@ -2,7 +2,7 @@ const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.fetchAsBuffer = [ oracledb.BLOB ];
 exports.dashboard = async (req, res) => {
-    if (req.session && req.session.user) {
+    if (req.session && req.session.user) { // check if the user is logged
         console.log(`USER: ${req.session.user}`)
         let itens
         try{
