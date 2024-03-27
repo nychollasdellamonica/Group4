@@ -2,10 +2,13 @@ const { home, homeLogin } = require("../controllers/homeController/homeControlle
 const { verifyUser} = require("../config/verifyUser")
 const testDbController = require("../controllers/database/testDb"); 
 const { dashboard } = require("../controllers/dashboardController/dashboardController"); // Correct import statement
+const { courses } = require("../controllers/coursesController/coursesController"); // Correct import statement
 
 module.exports = (app) => {
     // Route for rendering the home page
     app.get('/', home); 
+ // Route for rendering the courses page
+    app.get('/courses', courses); 
 
     // Route for rendering the login page
     app.get('/login', home);
