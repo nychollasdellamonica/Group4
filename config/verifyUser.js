@@ -2,15 +2,13 @@ const oracledb = require('oracledb');
 
 exports.verifyUser = async (req, res) => {
     try {
-        // Assuming you want to handle form submission logic here
-        console.log(req.body);
+        // Assuming you want to handle form submission logic here 
         const { email, password } = req.body;
 
         if (!email || !password) {
             return res.render('home', { title: "Home Page", errorLogin: "Something went wrong!" });
         }
-        let e =  email.toUpperCase();
-        console.log(e)
+        let e =  email.toUpperCase(); 
         try {
             const connection = await oracledb.getConnection({
                 user: process.env.NODE_ORACLEDB_USER,
