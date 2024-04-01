@@ -3,8 +3,8 @@ const { verifyUser} = require("../config/verifyUser")
 const testDbController = require("../controllers/database/testDb"); 
 const { dashboard } = require("../controllers/dashboardController/dashboardController"); // Correct import statement
 const { courses } = require("../controllers/coursesController/coursesController"); // Correct import statement
-
 const { contact } = require("../controllers/contactControllers/contactController"); // Correct import statement
+const { signin } = require("../controllers/signinControllers/signinController");
 
 module.exports = (app) => {
     // Route for rendering the home page
@@ -15,6 +15,9 @@ module.exports = (app) => {
 
  // Route for rendering the courses page
     app.get('/courses', courses); 
+
+// Route for rendering the sign in page
+    app.get('/signin', signin);
 
     // Route for rendering the login page
     app.get('/login', home);
