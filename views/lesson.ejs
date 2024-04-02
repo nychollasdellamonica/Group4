@@ -1,0 +1,68 @@
+<%- include('partials/header') %>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Lesson Form -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        Lesson Form
+                    </div>
+                    <div class="card-body">
+                        <form action="/lesson" method="POST">
+                            <div class="form-group">
+                                <label for="lessonName">Lesson Name</label>
+                                <input type="text" class="form-control" id="lessonName" name="lessonName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="createdAt">Created At</label>
+                                <input type="text" class="form-control" id="createdAt" name="createdAt" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="updatedAt">Updated At</label>
+                                <input type="text" class="form-control" id="updatedAt" name="updatedAt" readonly>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Lesson Content -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header">
+                        Lesson Content
+                    </div>
+                    <div class="card-body">
+                        <textarea id="lessonContent" name="lessonContent"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- TinyMCE Script -->
+    <script src="https://cdn.tiny.cloud/1/qhants1q05sfn99m3ak2ao7vg3v7m152npa39qrzkcb9urjb/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#lessonContent',
+            height: 500,
+            plugins: 'link image code',
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+            images_upload_handler: function (blobInfo, success, failure) {
+                // Convert the image blob to base64 format
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const base64data = reader.result;
+                    // Call the success callback with the base64 data
+                    success(base64data);
+                };
+                reader.onerror = function (error) {
+                    // Call the failure callback with the error message
+                    failure('Failed to read the image file: ' + error.message);
+                };
+                reader.readAsDataURL(blobInfo.blob());
+            }
+        });
+    </script>
+
+    <%- include('partials/footer') %>

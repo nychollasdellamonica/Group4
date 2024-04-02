@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+    <div class="container mt-5">
+        <h1>Lessons Report</h1>
+
+        <div class="row justify-content-end mb-3"> <!-- Align items to the right -->
+            <div class="col-auto">
+                <a href="/addLesson" class="btn btn-primary">Add New Lesson</a>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Created By</th>
+                    <th scope="col">Updated</th>
+                    <th scope="col">Updated By</th>
+                    <th scope="col">Sort Number</th>
+                </tr>
+            </thead>
+            <% if (lessons && lessons.length> 0) { %>
+                <tbody>
+                    <% lessons.forEach((lesson, index)=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= index + 1 %>
+                            </th>
+                            <td>
+                                <%= lesson.TITLE %>
+                            </td>
+                            <td>
+                                <%= lesson.CREATED %>
+                            </td>
+                            <td>
+                                <%= lesson.CREATED_BY %>
+                            </td>
+                            <td>
+                                <%= lesson.UPDATED %>
+                            </td>
+                            <td>
+                                <%= lesson.UPDATED_BY %>
+                            </td>
+                            <td>
+                                <%= lesson.SORT_NUM %>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+                <% } else { %>
+                    <p>No lessons available.</p>
+                    <% } %>
+        </table>
+
+    </div>
+
+    <!-- Bootstrap JS script -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <%- include('partials/footer') %>

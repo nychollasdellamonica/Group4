@@ -5,6 +5,7 @@ const { dashboard } = require("../controllers/dashboardController/dashboardContr
 const {  courseSaveData, courseGetData } = require("../controllers/coursesController/coursesController"); // Correct import statement
 const { contact } = require("../controllers/contactControllers/contactController"); // Correct import statement
 const { signin } = require("../controllers/signinControllers/signinController");
+const { getLessonData} = require("../controllers/lessonControllers/lessonController")
 
 module.exports = (app) => {
     // Route for rendering the home page
@@ -25,6 +26,9 @@ module.exports = (app) => {
     
     app.get('/course', courseGetData);
     app.post('/course', courseSaveData);
+
+
+    app.get('/lesson', getLessonData);
     
     // Route for handling user logout
     app.post('/logout', (req, res) => {

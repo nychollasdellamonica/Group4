@@ -17,7 +17,8 @@ exports.dashboard = async (req, res) => {
             });
             const data = await con.execute(
               `select * from GP4_COURSE`
-              ,
+              ,[]
+              ,options = {fetchInfo: {"DESCRIPTION": { type: oracledb.STRING } }}
             );
             itens = data.rows;
             if(itens[0].COVER_IMAGE){
