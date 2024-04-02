@@ -14,8 +14,7 @@ exports.checkDb = async (req, res) => {
     const data = await con.execute(
       `select 'alive' as isAlive from dual`
       ,[]
-    );
-    console.log(data);
+    ); 
     // const jsonData = JSON.stringify(data.rows, null, 2);
     res.setHeader('Content-Type', 'text/plain');
     res.json(data.rows[0].ISALIVE); 

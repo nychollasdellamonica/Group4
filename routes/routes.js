@@ -2,7 +2,7 @@ const { home, homeLogin } = require("../controllers/homeController/homeControlle
 const { verifyUser} = require("../config/verifyUser")
 const testDbController = require("../controllers/database/testDb"); 
 const { dashboard } = require("../controllers/dashboardController/dashboardController"); // Correct import statement
-const { courses } = require("../controllers/coursesController/coursesController"); // Correct import statement
+const {  courseSaveData, courseGetData } = require("../controllers/coursesController/coursesController"); // Correct import statement
 const { contact } = require("../controllers/contactControllers/contactController"); // Correct import statement
 const { signin } = require("../controllers/signinControllers/signinController");
 
@@ -13,9 +13,6 @@ module.exports = (app) => {
     // Route for rendering the contact page
     app.get('/contact', contact); 
 
- // Route for rendering the courses page
-    app.get('/courses', courses); 
-
 // Route for rendering the sign in page
     app.get('/signin', signin);
 
@@ -25,6 +22,9 @@ module.exports = (app) => {
     // Route for handling user login
     app.post('/login', verifyUser);
     app.get('/dashboard', dashboard);
+    
+    app.get('/course', courseGetData);
+    app.post('/course', courseSaveData);
     
     // Route for handling user logout
     app.post('/logout', (req, res) => {

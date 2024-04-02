@@ -24,10 +24,8 @@ exports.verifyUser = async (req, res) => {
             );
 
             if (result.rows.length > 0) {
-                // User authentication successful, set session
-                console.log(result.rows[0])
-                req.session.userID = result.rows[0].ID;
-                req.session.user = result.rows[0].USERNAME;
+                // User authentication successful, set session 
+                req.session.user = result.rows[0];
                 return res.redirect('/dashboard')
             } else {
                 return res.render('home', { title: "Home Page", errorLogin: "Invalid email or password." });

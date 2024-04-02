@@ -1,9 +1,11 @@
 const oracledb = require('oracledb');
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.fetchAsBuffer = [ oracledb.BLOB ];
+
+const fs = require('fs');
+const path = require('path'); 
 exports.dashboard = async (req, res) => {
     if (req.session && req.session.user) { // check if the user is logged
-        console.log(`USER: ${req.session.user}`)
         let itens
         try{
             con = await oracledb.getConnection({
@@ -17,9 +19,16 @@ exports.dashboard = async (req, res) => {
               `select * from GP4_COURSE`
               ,
             );
-            // console.log(data);
             itens = data.rows;
-            itens[0].COVER_IMAGE = itens[0].COVER_IMAGE.toString('base64');
+            if(itens[0].COVER_IMAGE){
+              itens[0].COVER_IMAGE = itens[0].COVER_IMAGE.toString('base64');
+            }else{
+              const imagePath = path.resolve(__dirname, '..','..', 'images', 'ai.jpg');
+              const imageData = fs.readFileSync(imagePath);
+              const base64Image = Buffer.from(imageData).toString('base64');
+              itens[0].COVER_IMAGE =base64Image
+            }
+            
              
           } catch (err) {
             console.error(err);
@@ -33,7 +42,6 @@ exports.dashboard = async (req, res) => {
               }
             }
           }
-        console.log(itens)
         res.render('dashboard', { title: "Dashboard",courses:itens});
     } else {
         // User is not logged in, render login page

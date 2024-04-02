@@ -2,6 +2,7 @@
 <%- include('partials/menu') %>
 
 <div class="p-5 text-center bg-body-tertiary rounded-3">
+   
     <!-- Flex container with right alignment -->
     <div class="d-flex flex-wrap justify-content-end">
         <% courses.forEach(function(course) { %>
@@ -10,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= course.TITLE %></h5>
                     <p class="card-text"><%= course.description %></p>
-                    <a href="#" class="btn btn-primary">View Details</a>
+                    <a href="/course?id=<%= course.ID %>" class="btn btn-primary">View Details</a>
                 </div>
             </div>
         <% }); %>
@@ -21,7 +22,7 @@
             <div class="card-body">
                 <h5 class="card-title">Mandatory Work Place Harassment and Violence Prevention Training</h5>
                 <p class="card-text">This course is designed to help employees and management understand and prevent workplace harassment and violence.</p>
-                <a href="#" class="btn btn-primary">View Details</a>
+                <a href="subimtForm()" class="btn btn-primary">View Details</a>
             </div>
         </div>
 
