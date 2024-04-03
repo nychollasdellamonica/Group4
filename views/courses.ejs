@@ -46,12 +46,8 @@
             <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" multiple="false">
             <img id="previewImage" src="#" alt="Preview" style="display:none; max-width: 300px; margin-top: 10px;">
         </div>
-<<<<<<< HEAD
         <button type="submit" class="btn btn-primary">Submit</button>
         <% if(course && course.ID) { %>
-=======
-        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
->>>>>>> 29eb0f0 (css update)
         <a href="/lesson?courseId=<%= course.ID %>" class="btn btn-primary">View Lessons</a>
         <% } %>
     </form>
@@ -83,14 +79,8 @@
             mimetype.setAttribute('type', 'hidden');
             mimetype.setAttribute('name', 'mimeType');
     
-<<<<<<< HEAD
             reader.onloadend = () => { 
                 mimetype.value = reader.result.split(',')[0]; 
-=======
-            reader.onloadend = () => {
-                console.log(reader.result)
-                mimetype.value = reader.result.split(',')[0].replace('data:', ''); 
->>>>>>> 29eb0f0 (css update)
                 hiddenInput.value = reader.result.split(',')[1]; 
                 courseForm.appendChild(hiddenInput);
                 courseForm.appendChild(mimetype);
