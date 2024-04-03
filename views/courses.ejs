@@ -1,14 +1,6 @@
 <%- include('partials/header') %>
 <%- include('partials/menu') %>
-<<<<<<< HEAD
 
-<div class="container mt-5">
-    <h2>Edit/Insert Course</h2>
-    <div class="text-right mb-3">
-        <a href="/" class="btn btn-secondary">Return</a>
-    </div>
-    <form id="courseForm" action="/course" method="POST" >
-=======
 <div style="background-color: rgb(87, 144, 87); min-height: 100vh; padding: 20px;">
     <div class="container mt-5" style="margin-top: 20px !important; background-color: white; padding: 20px; border-radius: 10px;">
 <div class="container mt-5" style="margin-top: 20px !important;">
@@ -17,7 +9,7 @@
         <h2 style="margin-top: 20px;">course</h2>
     <% } %>
     <form id="courseForm" action="/course" method="POST">
->>>>>>> 29eb0f0 (css update)
+
         <% if(course && course.ID) { %>
             <input type="hidden" name="courseId" value="<%= course.ID %>">
         <% } %>
