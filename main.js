@@ -9,13 +9,20 @@ const app = express();
 const PORT = process.env.PORT || 1337;
  
 // Middlewares 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb'  }));
+app.use(express.json({ limit: '20mb' }));
 app.use(session({
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     resave: false
 })); 
+
+//
+
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
 app.set('view engine', 'ejs');
 
 // Routes

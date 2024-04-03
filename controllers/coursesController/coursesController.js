@@ -15,13 +15,17 @@ exports.courseGetData = async (req, res) => {
       const data = await con.execute(
         `select * from GP4_COURSE where id = :ID`
         , [req.query.id]
-        ,options = {fetchInfo: {"DESCRIPTION": { type: oracledb.STRING } }}
+        , options = { fetchInfo: { "DESCRIPTION": { type: oracledb.STRING } } }
       );
       row = data.rows;
-      if(row[0].COVER_IMAGE){
+      if(row.length === 0){
+        res.redirect('/');
+        return
+      }
+      if (row[0].COVER_IMAGE) {
         row[0].COVER_IMAGE = row[0].COVER_IMAGE.toString('base64');
       }
-      
+
 
     } catch (err) {
       console.error(err);
@@ -34,7 +38,7 @@ exports.courseGetData = async (req, res) => {
           console.error(err);
         }
       }
-    }  
+    }
     res.render('courses', { title: "Courses Page", course: row[0], errorLogin: "" });
   } else {
     // User is not logged in, render login page
@@ -43,13 +47,14 @@ exports.courseGetData = async (req, res) => {
 }
 
 exports.courseSaveData = async (req, res) => {
-  if (req.session && req.session.user) { 
-    let courseData = req.body  
+  if (req.session && req.session.user) {
+    let courseData = req.body
+    let id
     let bufferData
-    if (courseData.coverImageBase64){
-       bufferData = Buffer.from(courseData.coverImageBase64, 'base64');
+    if (courseData.coverImageBase64) {
+      bufferData = Buffer.from(courseData.coverImageBase64, 'base64');
     }
-    
+
     try {
       con = await oracledb.getConnection({
         user: process.env.NODE_ORACLEDB_USER,
@@ -65,26 +70,26 @@ exports.courseSaveData = async (req, res) => {
 
       // Bind variables object
       const binds = {
-        p_id: { dir: oracledb.BIND_IN,  val: courseData.courseId },
-        p_userId: { dir: oracledb.BIND_IN, val: req.session.user.ID},
+        p_id: { dir: oracledb.BIND_INOUT, val: courseData.courseId },
+        p_userId: { dir: oracledb.BIND_IN, val: req.session.user.ID },
         p_status: { dir: oracledb.BIND_IN, val: courseData.status ? courseData.status : 1 },
         p_code: { dir: oracledb.BIND_IN, val: courseData.code },
         p_title: { dir: oracledb.BIND_IN, val: courseData.title },
         p_description: { dir: oracledb.BIND_IN, val: courseData.description },
-        p_startDate: { dir: oracledb.BIND_IN, type: oracledb.DATE,val: courseData.startDate ? new Date(courseData.startDate) : null },
+        p_startDate: { dir: oracledb.BIND_IN, type: oracledb.DATE, val: courseData.startDate ? new Date(courseData.startDate) : null },
         p_endDate: { dir: oracledb.BIND_IN, val: courseData.endDate ? courseData.endDate : null },
-        p_created: { dir: oracledb.BIND_IN, type: oracledb.DATE, val: courseData.created ? courseData.created : new Date()},
-        p_createdBy: { dir: oracledb.BIND_IN, val: courseData.createdBy ? courseData.createdBy : req.session.user.ID},
+        p_created: { dir: oracledb.BIND_IN, type: oracledb.DATE, val: courseData.created ? courseData.created : new Date() },
+        p_createdBy: { dir: oracledb.BIND_IN, val: courseData.createdBy ? courseData.createdBy : req.session.user.ID },
         p_updated: { dir: oracledb.BIND_IN, type: oracledb.DATE, val: new Date() },
-        p_updatedBy: { dir: oracledb.BIND_IN,  val: req.session.user.ID },
-        p_coverImage: { dir: oracledb.BIND_IN, type: oracledb.BLOB, val: bufferData ? bufferData : null},
-        p_mimeType: { dir: oracledb.BIND_IN, val: courseData.mimeType ? courseData.mimeType : null},
+        p_updatedBy: { dir: oracledb.BIND_IN, val: req.session.user.ID },
+        p_coverImage: { dir: oracledb.BIND_IN, type: oracledb.BLOB, val: bufferData ? bufferData : null },
+        p_mimeType: { dir: oracledb.BIND_IN, val: courseData.mimeType ? courseData.mimeType : null },
         p_fileName: { dir: oracledb.BIND_IN, val: courseData.coverImage ? courseData.coverImage : null }
-      };  
+      };
 
       // Execute the procedure call 
       const data = await con.execute(sql, binds);
-
+      id = data.outBinds.p_id;
     } catch (err) {
       console.error(err);
       res.json();
@@ -97,10 +102,18 @@ exports.courseSaveData = async (req, res) => {
         }
       }
     }
-    res.redirect(`/course?id=${req.body.courseId}`);
+    res.redirect(`/course?id=${id}`);
   } else {
     // User is not logged in, render login page
     res.redirect('/');
   }
 }
 
+exports.addNewCourse = async (req, res) => {
+  if (req.session && req.session.user) { // check if the user is logged
+    res.render('courses', { title: "Courses Page", course: {}, errorLogin: "" });
+  } else {
+    // User is not logged in, render login page
+    res.redirect('/');
+  }
+}

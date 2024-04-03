@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+<%- include('partials/menu') %>
+
+<div class="container mt-5">
+    <h2>Edit User Details</h2>
+    <div class="text-right mb-3">
+        <a href="usersReport" class="btn btn-secondary">Return</a>
+    </div>
+    <form action="/updateUser" method="POST">
+        <input type="hidden" name="userId" value="<%= user ? user.ID : '' %>">
+
+        <!-- <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" class="form-control" id="status" name="status" value="<%= user ? user.STATUS : '' %>" required>
+        </div> -->
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="<%= user ? user.USERNAME : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<%= user ? user.EMAIL : '' %>" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" value="<%= user ? user.PASSWORD : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="firstName" name="firstName" value="<%= user ? user.FIRST_NAME : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" value="<%= user ? user.LAST_NAME : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone" name="phone" value="<%= user ? user.PHONE : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="startDate" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="startDate" name="startDate" value="<%= user ? user.START_DATE : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="endDate" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="endDate" name="endDate" value="<%= user ? user.END_DATE : '' %>">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,27 +1,37 @@
 <%- include('partials/header') %>
+ 
+
+
     <div class="container mt-5">
+        <div class="text-right mb-3">
+            <a href="/lesson?courseId=<%= lesson ? lesson.COURSEID : '/' %>" class="btn btn-secondary">Return</a>
+        </div>
         <div class="row">
-            <!-- Lesson Form -->
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header">
                         Lesson Form
                     </div>
                     <div class="card-body">
-                        <form action="/lesson" method="POST">
+                        <form id="lessonForm" action="/lesson" method="POST">
                             <div class="form-group">
                                 <label for="lessonName">Lesson Name</label>
-                                <input type="text" class="form-control" id="lessonName" name="lessonName" required>
+                                <input type="text" class="form-control" id="lessonName" name="lessonName"
+                                    value="<%= lesson ? lesson.TITLE : '' %>" required>
+
+                                <label for="sortNumber">Sort Number</label>
+                                <!-- Set initial value for sortNumber if lesson object is not null -->
+                                <input type="number" class="form-control" id="sortNumber" name="sortNumber"
+                                    value="<%= lesson ? lesson.SORT_NUM : '' %>" required>
+
+                                <!-- Hidden input fields -->
+                                <input type="hidden" id="lessonContent" name="lessonContent">
+                                <!-- Set initial value for courseId -->
+                                <input type="hidden" id="courseID" name="courseID"
+                                    value="<%= lesson ? lesson.COURSEID : '' %>">
+                                <input type="hidden" id="ID" name="ID" value="<%= lesson ? lesson.ID : '' %>">
                             </div>
-                            <div class="form-group">
-                                <label for="createdAt">Created At</label>
-                                <input type="text" class="form-control" id="createdAt" name="createdAt" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="updatedAt">Updated At</label>
-                                <input type="text" class="form-control" id="updatedAt" name="updatedAt" readonly>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -33,7 +43,9 @@
                         Lesson Content
                     </div>
                     <div class="card-body">
-                        <textarea id="lessonContent" name="lessonContent"></textarea>
+                        <!-- Set initial value for lessonContent if lesson object is not null -->
+                        <textarea id="lessonTextArea"
+                            name="lessonTextArea"><%= lesson ? lesson.CONTENT : '' %></textarea>
                     </div>
                 </div>
             </div>
@@ -44,10 +56,24 @@
         referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: '#lessonContent',
+            selector: '#lessonTextArea',
             height: 500,
-            plugins: 'link image code',
-            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | code',
+            plugins: 'link image code media',
+            media_allow_video: true,
+            media_url_resolver: function (data, resolve) {
+                // Implement a custom media URL resolver if needed
+                // For example, to handle YouTube URLs
+                if (data.url.includes('youtube.com')) {
+                    resolve({ html: `<iframe width="560" height="315" src="${data.url}" frameborder="0" allowfullscreen></iframe>` });
+                } else {
+                    // Fallback for unsupported media URLs
+                    resolve({ html: '<p>Unsupported media URL</p>' });
+                }
+            },
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image media | code',
+            init_instance_callback: function (editor) {
+                editor.setContent(document.getElementById('lessonTextArea').value)
+            },
             images_upload_handler: function (blobInfo, success, failure) {
                 // Convert the image blob to base64 format
                 const reader = new FileReader();
@@ -61,8 +87,17 @@
                     failure('Failed to read the image file: ' + error.message);
                 };
                 reader.readAsDataURL(blobInfo.blob());
-            }
+            },
+
+        });
+
+        // Add value to hidden input before form submission
+        document.getElementById('lessonForm').addEventListener('submit', function (event) {
+            // Get the content from the TinyMCE editor
+            const additionalValue = tinymce.get('lessonTextArea').getContent();
+
+            // Set the value to the hidden input field
+            document.getElementById('lessonContent').value = additionalValue;
         });
     </script>
-
     <%- include('partials/footer') %>

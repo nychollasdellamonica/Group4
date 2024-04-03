@@ -21,14 +21,17 @@ exports.dashboard = async (req, res) => {
               ,options = {fetchInfo: {"DESCRIPTION": { type: oracledb.STRING } }}
             );
             itens = data.rows;
-            if(itens[0].COVER_IMAGE){
-              itens[0].COVER_IMAGE = itens[0].COVER_IMAGE.toString('base64');
-            }else{
-              const imagePath = path.resolve(__dirname, '..','..', 'images', 'ai.jpg');
-              const imageData = fs.readFileSync(imagePath);
-              const base64Image = Buffer.from(imageData).toString('base64');
-              itens[0].COVER_IMAGE =base64Image
+            for(let i=0; i< itens.length; i++){
+              if(itens[i].COVER_IMAGE){
+                itens[i].COVER_IMAGE = itens[i].COVER_IMAGE.toString('base64');
+              }else{
+                const imagePath = path.resolve(__dirname, '..','..', 'images', 'ai.jpg');
+                const imageData = fs.readFileSync(imagePath);
+                const base64Image = Buffer.from(imageData).toString('base64');
+                itens[0].COVER_IMAGE =base64Image
+              }
             }
+
             
              
           } catch (err) {

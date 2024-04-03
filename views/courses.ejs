@@ -3,9 +3,9 @@
 
 <div class="container mt-5">
     <h2>Edit/Insert Course</h2>
-    <% if(course) { %>
-        <h2>course</h2>
-    <% } %>
+    <div class="text-right mb-3">
+        <a href="/" class="btn btn-secondary">Return</a>
+    </div>
     <form id="courseForm" action="/course" method="POST" >
         <% if(course && course.ID) { %>
             <input type="hidden" name="courseId" value="<%= course.ID %>">
@@ -36,7 +36,9 @@
             <img id="previewImage" src="#" alt="Preview" style="display:none; max-width: 300px; margin-top: 10px;">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <% if(course && course.ID) { %>
         <a href="/lesson?courseId=<%= course.ID %>" class="btn btn-primary">View Lessons</a>
+        <% } %>
     </form>
 </div>
 
@@ -66,11 +68,11 @@
             mimetype.setAttribute('type', 'hidden');
             mimetype.setAttribute('name', 'mimeType');
     
-            reader.onloadend = () => {
-                console.log(reader.result)
-                mimetype.value = reader.result.split(',')[0].replace('data:'); 
+            reader.onloadend = () => { 
+                mimetype.value = reader.result.split(',')[0]; 
                 hiddenInput.value = reader.result.split(',')[1]; 
                 courseForm.appendChild(hiddenInput);
+                courseForm.appendChild(mimetype);
             };
         });
     });

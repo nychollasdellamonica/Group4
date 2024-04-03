@@ -2,11 +2,11 @@ const { home, homeLogin } = require("../controllers/homeController/homeControlle
 const { verifyUser} = require("../config/verifyUser")
 const testDbController = require("../controllers/database/testDb"); 
 const { dashboard } = require("../controllers/dashboardController/dashboardController"); // Correct import statement
-const {  courseSaveData, courseGetData } = require("../controllers/coursesController/coursesController"); // Correct import statement
+const course = require("../controllers/coursesController/coursesController"); // Correct import statement
 const { contact } = require("../controllers/contactControllers/contactController"); // Correct import statement
 const { signin } = require("../controllers/signinControllers/signinController");
-const { getLessonData} = require("../controllers/lessonControllers/lessonController")
-
+const lesson = require("../controllers/lessonControllers/lessonController")
+const user = require("../controllers/userControllers/userController")
 module.exports = (app) => {
     // Route for rendering the home page
     app.get('/', home); 
@@ -24,12 +24,14 @@ module.exports = (app) => {
     app.post('/login', verifyUser);
     app.get('/dashboard', dashboard);
     
-    app.get('/course', courseGetData);
-    app.post('/course', courseSaveData);
+    app.get('/course', course.courseGetData);
+    app.post('/course', course.courseSaveData);
+    app.get('/addCourse', course.addNewCourse);
 
 
-    app.get('/lesson', getLessonData);
-    
+    app.get('/lesson', lesson.getLessonReport); 
+    app.post('/lesson', lesson.saveLessonData); 
+    app.get('/addLesson', lesson.addLesson); 
     // Route for handling user logout
     app.post('/logout', (req, res) => {
         req.session.destroy((err) => {
@@ -46,4 +48,10 @@ module.exports = (app) => {
     app.get('/testDb', (req, res) => {
         testDbController.checkDb(req, res);
     });
+
+
+    app.get('/usersReport', user.getUsersReport); 
+    app.get('/addUser', user.addUser); 
+    app.get('/editUser', user.getUserById); 
+    app.post('/updateUser',user.saveUser)
 };
