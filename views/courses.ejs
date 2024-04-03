@@ -1,5 +1,6 @@
 <%- include('partials/header') %>
 <%- include('partials/menu') %>
+<<<<<<< HEAD
 
 <div class="container mt-5">
     <h2>Edit/Insert Course</h2>
@@ -7,36 +8,50 @@
         <a href="/" class="btn btn-secondary">Return</a>
     </div>
     <form id="courseForm" action="/course" method="POST" >
+=======
+<div style="background-color: rgb(87, 144, 87); min-height: 100vh; padding: 20px;">
+    <div class="container mt-5" style="margin-top: 20px !important; background-color: white; padding: 20px; border-radius: 10px;">
+<div class="container mt-5" style="margin-top: 20px !important;">
+    <h2 style="color: green;">Edit/ Insert Course</h2>
+    <% if(course) { %>
+        <h2 style="margin-top: 20px;">course</h2>
+    <% } %>
+    <form id="courseForm" action="/course" method="POST">
+>>>>>>> 29eb0f0 (css update)
         <% if(course && course.ID) { %>
             <input type="hidden" name="courseId" value="<%= course.ID %>">
         <% } %>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="<%= course && course.TITLE ? course.TITLE : '' %>" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="code" class="form-label">Code</label>
             <input type="text" class="form-control" id="code" name="code" value="<%= course && course.CODE ? course.CODE : '' %>" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="description" class="form-label">Description</label>
             <textarea class="form-control" id="description" name="description" rows="3" required><%= course && course.DESCRIPTION ? course.DESCRIPTION : '' %></textarea>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="startDate" class="form-label">Start Date</label>
             <input type="date" class="form-control" id="startDate" name="startDate" value="<%= course && course.START_DATE ? course.START_DATE.toISOString().split('T')[0] : '' %>" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="endDate" class="form-label">End Date</label>
             <input type="date" class="form-control" id="endDate" name="endDate" value="<%= course && course.END_DATE ? course.END_DATE.toISOString().split('T')[0] : '' %>">
         </div>
-        <div class="mb-3">
+        <div class="mb-3" style="margin-bottom: 1rem !important;">
             <label for="coverImage" class="form-label">Cover Image</label>
-            <input type="file" class="form-control" id="coverImage" name="coverImage"accept="image/*" multiple="false">
+            <input type="file" class="form-control" id="coverImage" name="coverImage" accept="image/*" multiple="false">
             <img id="previewImage" src="#" alt="Preview" style="display:none; max-width: 300px; margin-top: 10px;">
         </div>
+<<<<<<< HEAD
         <button type="submit" class="btn btn-primary">Submit</button>
         <% if(course && course.ID) { %>
+=======
+        <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
+>>>>>>> 29eb0f0 (css update)
         <a href="/lesson?courseId=<%= course.ID %>" class="btn btn-primary">View Lessons</a>
         <% } %>
     </form>
@@ -68,13 +83,20 @@
             mimetype.setAttribute('type', 'hidden');
             mimetype.setAttribute('name', 'mimeType');
     
+<<<<<<< HEAD
             reader.onloadend = () => { 
                 mimetype.value = reader.result.split(',')[0]; 
+=======
+            reader.onloadend = () => {
+                console.log(reader.result)
+                mimetype.value = reader.result.split(',')[0].replace('data:', ''); 
+>>>>>>> 29eb0f0 (css update)
                 hiddenInput.value = reader.result.split(',')[1]; 
                 courseForm.appendChild(hiddenInput);
                 courseForm.appendChild(mimetype);
             };
         });
     });
-    </script>
+</script>
+
 <%- include('partials/footer') %>

@@ -5,42 +5,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        body, input, textarea {
+          font-family: "Poppins", sans-serif;
+        }
+        .container {
+          position: relative;
+          width: 100%;
+          min-height: 100vh;
+          padding: 2rem;
+          background-color: #fafafa;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .form {
+          width: 100%;
+          max-width: 820px;
+          background-color: #fff;
+          border-radius: 10px;
+          box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          overflow: hidden;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .contact-form {
+          background-color: rgb(87, 144, 87);
+          position: relative;
+        }
+       
+        form {
+          padding: 2.5rem 2rem;
+          z-index: 9;
+          overflow: hidden;
+          position: relative;
+        }
+        .title {
+          color: #fff;
+          font-weight: 550;
+          font-size: 2rem;
+          line-height: 2;
+          margin-bottom: 0.1rem;
+          margin-left: 3rem;
+        }
+        .input-container {
+          position: relative;
+          margin: 1.5rem 0;
+        }
+        .input {
+          width: 100%;
+          outline: none;
+          border: 2px solid #fafafa;
+          background: none;
+          padding: 0.8rem 1.2rem;
+          color: #fff;
+          font-weight: 500;
+          font-size: 0.95rem;
+          letter-spacing: 0.5px;
+          border-radius: 25px;
+          transition: 0.3s;
+        }
+        .btn {
+          padding: 0.6rem 1.3rem;
+          background-color: #fff;
+          border: 2px solid #fafafa;
+          font-size: 0.95rem;
+          color: rgb(160, 202, 160);
+          line-height: 1;
+          border-radius: 25px;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s;
+          margin-top: 15px; /* Adjusted for alignment */
+        }
+        .btn:hover {
+          background-color: transparent;
+          color: #fff;
+        }
+
+    </style>
 </head>
 <body>
+<div class="container">
+    <div class="form contact-form">
+        <div class="contact-info">
+            <h3 class="title">Sign In</h3>
+            <p style="margin-left: 2rem;">Please sign in to access this page.</p>
 
-    <div class="signin-container">
-        <h2>Sign In</h2>
-        <p>Please sign in to access this page.</p>
+        </div>
         <form action="/login" method="POST">
-            <div class="form-group">
-                <label for="role">I am a:</label>
-                <select id="role" name="role" required>
-                    <option value="student">Student</option>
-                    <option value="educator">Educator</option>
-                </select>
+            <div class="input-container">
+                <input type="text" name="username" class="input" placeholder="Username" required>
             </div>
-
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+            <div class="input-container">
+                <input type="password" name="password" class="input" placeholder="Password" required>
             </div>
-
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+            <div class="input-container">
+                <a href="/forgot-password" class="btn">Forgot Password?</a>
             </div>
-
-            <div class="form-group">
-                <a href="/forgot-password" class="forgot-password">Forgot Password?</a>
-            </div>
-
-            <button type="submit" class="btn">Login</button>
+            <input type="submit" value="Login" class="btn">
         </form>
     </div>
-
+</div>
 </body>
 </html>
-
-
 <%- include('partials/footer') %>
