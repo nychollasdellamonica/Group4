@@ -16,7 +16,12 @@ exports.dashboard = async (req, res) => {
               externalAuth: false 
             });
             const data = await con.execute(
-              `select * from GP4_COURSE`
+              `select c.*
+                      ,case when e.id is not null then 'Y' else 'N' end enrolled
+              from GP4_COURSE c
+                  ,GP4_ENROLLMENTS e
+                  where c.id = e.courseid(+)
+              `
               ,[]
               ,options = {fetchInfo: {"DESCRIPTION": { type: oracledb.STRING } }}
             );

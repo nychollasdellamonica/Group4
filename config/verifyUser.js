@@ -22,7 +22,7 @@ exports.verifyUser = async (req, res) => {
                 `SELECT * FROM gp4_users WHERE UPPER(username) = :user_name AND password = :pwd`,
                 { user_name: e, pwd: password }
             );
-
+            console.log(result.rows)
             if (result.rows.length > 0) {
                 // User authentication successful, set session 
                 req.session.user = result.rows[0];
@@ -34,7 +34,7 @@ exports.verifyUser = async (req, res) => {
             console.error(error);
             return res.render('home', { title: "Home Page", errorLogin: "Something went wrong!" });
         }
-
+       
     } catch (error) {
         console.error('Error handling form submission:', error);
         return res.status(500).send('Error handling form submission'); // Send an error message to the client

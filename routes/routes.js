@@ -14,7 +14,7 @@ module.exports = (app) => {
     // Route for rendering the contact page
     app.get('/contact', contact); 
 
-// Route for rendering the sign in page
+    // Route for rendering the sign in page
     app.get('/signin', signin);
 
     // Route for rendering the login page

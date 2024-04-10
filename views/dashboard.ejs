@@ -1,13 +1,13 @@
 <%- include('partials/header') %>
 <%- include('partials/menu') %>
-<div style="background-color: rgb(87, 144, 87); min-height: 100vh; padding: 2px;">
-    <div class="container mt-5" style="margin-top: 15px !important; background-color: white; padding: 70px; border-radius: 5px;">
-<div class="p-5 text-center bg-body-tertiary rounded-3">
+
+    <% if (session.user.STATUS == '1') { %>
     <div class="row justify-content-end mb-3"> <!-- Align items to the right -->
         <div class="col-auto">
             <a href="/addCourse" class="btn btn-primary">Add New Course</a>
         </div>
     </div>
+    <% } %>    
     <!-- Flex container with right alignment -->
     <div class="d-flex flex-wrap justify-content">
         <% courses.forEach(function(course) { %>
@@ -16,48 +16,16 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= course.TITLE %></h5>
                     <p class="card-text"><%= course.DESCRIPTION %></p>
-                    <a href="/course?id=<%= course.ID %>" class="btn btn-primary">View Details</a>
+                    <% if (session.user.STATUS == '1') { %>
+                        <a href="/course?id=<%= course.ID %>" class="btn btn-primary">View Details</a>
+                    <% } else { %>
+                        <a href="/lesson?courseId=<%= course.ID %>" class="btn btn-primary">View Details</a>
+                    <% } %>
                 </div>
             </div>
         <% }); %>
 
-        <!-- Additional manually added course cards
-        <div class="card mx-2 mb-4" style="width: 18rem;">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Mandatory Work Place Harassment and Violence Prevention Training">
-            <div class="card-body">
-                <h5 class="card-title">Mandatory Work Place Harassment and Violence Prevention Training</h5>
-                <p class="card-text">This course is designed to help employees and management understand and prevent workplace harassment and violence.</p>
-                <a href="subimtForm()" class="btn btn-primary">View Details</a>
-            </div>
-        </div>
-
-        <div class="card mx-2 mb-4" style="width: 18rem;">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Product Training">
-            <div class="card-body">
-                <h5 class="card-title">Product Training</h5>
-                <p class="card-text">Gain in-depth knowledge about our latest products and how to effectively use them.</p>
-                <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-        </div>
-
-        <div class="card mx-2 mb-4" style="width: 18rem;">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Customer Service Training">
-            <div class="card-body">
-                <h5 class="card-title">Customer Service Training</h5>
-                <p class="card-text">Learn the essentials of delivering outstanding customer service.</p>
-                <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-        </div>
-
-        <div class="card mx-2 mb-4" style="width: 18rem;">
-            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Training on Safety and Compliance">
-            <div class="card-body">
-                <h5 class="card-title">Training on Safety and Compliance</h5>
-                <p class="card-text">Understand the importance of workplace safety and compliance with industry regulations.</p>
-                <a href="#" class="btn btn-primary">View Details</a>
-            </div>
-        </div>
-    </div> -->
+    
 </div>
 
 <%- include('partials/footer') %>
