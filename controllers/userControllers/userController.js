@@ -14,7 +14,24 @@ exports.getUsersReport = async (req, res) => {
                 externalAuth: false
             });
             const data = await con.execute(
-                `select * from GP4_USERS`
+                `select 
+                ID
+                ,case when STATUS = 1 then 'Admin' else 'Student' end STATUS
+                ,USERNAME
+                ,PASSWORD
+                ,EMAIL
+                ,FIRST_NAME
+                ,LAST_NAME
+                ,PHONE
+                ,START_DATE
+                ,END_DATE
+                ,CREATED
+                ,CREATED_BY
+                ,UPDATED
+                ,UPDATED_BY
+                ,VALUE_B
+                ,VALUE_C                
+                from GP4_USERS`
                 , []
             );
             itens = data.rows;
@@ -53,7 +70,23 @@ exports.getUserById = async (req, res) => {
                 externalAuth: false
             });
             const data = await con.execute(
-                `select * from GP4_USERS where id =:id`
+                `select
+                ID
+                ,case when STATUS = 1 then 'Admin' else 'Student' end STATUS
+                ,USERNAME
+                ,PASSWORD
+                ,EMAIL
+                ,FIRST_NAME
+                ,LAST_NAME
+                ,PHONE
+                ,START_DATE
+                ,END_DATE
+                ,CREATED
+                ,CREATED_BY
+                ,UPDATED
+                ,UPDATED_BY
+                ,VALUE_B
+                ,VALUE_C     from GP4_USERS where id =:id`
                 , [req.query.id]
             );
             itens = data.rows;

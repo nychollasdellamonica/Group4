@@ -9,10 +9,27 @@
     <form action="/updateUser" method="POST">
         <input type="hidden" name="userId" value="<%= user ? user.ID : '' %>">
 
-        <!-- <div class="mb-3">
+        <div class="mb-3">
             <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control" id="status" name="status" value="<%= user ? user.STATUS : '' %>" required>
-        </div> -->
+            <select class="form-select" id="status" name="status" required>
+                <option value="">Select Status</option>
+                <% if (user.STATUS) { %>
+                    <% if (user.STATUS === 'Admin') { %>
+                        <option value="1" selected>Admin</option>
+                        <option value="2">Student</option>
+                    <% } else if (user.STATUS === 'Student') { %>
+                        <option value="1">Admin</option>
+                        <option value="2" selected>Student</option>
+                    <% } else { %>
+                        <option value="1">Admin</option>
+                        <option value="2">Student</option>
+                    <% } %>
+                <% } else { %>
+                    <option value="1">Admin</option>
+                    <option value="2">Student</option>
+                <% } %>
+            </select>
+        </div>
 
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
