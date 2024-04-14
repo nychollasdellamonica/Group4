@@ -42,7 +42,7 @@
                             <a href="/lesson?id=<%= lesson.ID %>&view=Y&courseId=<%= lesson.COURSEID ? lesson.COURSEID : '' %>" class="btn btn-primary btn-sm">View</a>
                             <!-- Edit button -->
                             <% if (session.user.STATUS == '1'){ %>
-                            <a href="/lesson?id=<%= lesson.ID %>&courseId=<%= lesson.COURSEID ? lesson.COURSEID : '' %>" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="/lesson?id=<%= lesson.ID %>&courseId=<%= lesson.COURSEID ? lesson.COURSEID : '' %>&view=N" class="btn btn-primary btn-sm">Edit</a>
                             
                             <!-- Delete button -->
                             <form action="/deleteLesson" method="post" style="display: inline;">
